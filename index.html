@@ -2,54 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Suki Playground</title>
+  <title>XSS Playground - Suki</title>
   <style>
     body {
-      background: #0d0d0d;
+      background: #111;
       color: #fff;
       font-family: sans-serif;
       text-align: center;
       padding: 40px;
     }
-    img {
-      width: 200px;
-      margin-top: 20px;
-      border-radius: 15px;
-    }
     input, button {
       padding: 10px;
       font-size: 16px;
       margin-top: 10px;
+      border-radius: 6px;
     }
     #output {
       margin-top: 40px;
-      font-size: 20px;
+      font-size: 18px;
+      color: #00ffff;
+    }
+    img {
+      margin-top: 20px;
+      width: 180px;
+      border-radius: 12px;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to <span style="color:#00ffe0">Suki Playground</span></h1>
-  <p>Masukkan apapun, bahkan <b>&lt;script&gt;</b> juga bisa!</p>
-
-  <form onsubmit="submitXSS(); return false;">
-    <input id="xss" type="text" placeholder="Coba ketik script XSS">
-    <button type="submit">Jalankan</button>
-  </form>
+  <h1>XSS Playground</h1>
+  <p>Coba masukkan script XSS ke input di bawah ini:</p>
+  <input type="text" id="xssInput" placeholder="Misal: <script>alert(1)</script>" style="width:80%">
+  <br>
+  <button onclick="jalanXSS()">Jalankan</button>
 
   <div id="output"></div>
-  <img id="gambar" src="https://i.imgur.com/xXQZL8z.png" alt="Suki Ganteng">
+  <img src="https://i.imgur.com/xXQZL8z.png" alt="Suki">
 
   <script>
-    function submitXSS() {
-      const val = document.getElementById('xss').value;
-      document.getElementById('output').innerHTML = val;
+    function jalanXSS() {
+      const input = document.getElementById("xssInput").value;
+      document.getElementById("output").innerHTML = input;
     }
 
-    // Optional: auto-jalan kalau ada ?q= di URL
-    const params = new URLSearchParams(location.search);
-    const q = params.get('q');
+    // Jika mau bisa juga auto dari URL
+    const q = new URLSearchParams(location.search).get('q');
     if (q) {
-      document.getElementById('output').innerHTML = decodeURIComponent(q);
+      document.getElementById("output").innerHTML = decodeURIComponent(q);
     }
   </script>
 </body>
