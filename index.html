@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Suki Web</title>
+  <style>
+    body {
+      background: #0f0f0f;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    img {
+      width: 200px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    input, button {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin: 10px;
+    }
+    #output {
+      margin-top: 40px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to <span style="color:#00f2ff">Suki Web</span></h1>
+  <p>This site is totally secure... maybe.</p>
+
+  <form method="GET">
+    <input type="text" name="q" placeholder="Enter your message or code">
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="output"></div>
+  <img id="photo" src="https://i.imgur.com/xXQZL8z.png" alt="Suki">
+
+  <script>
+    const q = new URLSearchParams(location.search).get('q');
+    if (q) {
+      document.getElementById("output").innerHTML = q;
+    }
+  </script>
+</body>
+</html>
