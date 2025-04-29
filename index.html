@@ -1,55 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>XSS Playground - Suki</title>
-  <style>
-    body {
-      background: #111;
-      color: #fff;
-      font-family: sans-serif;
-      text-align: center;
-      padding: 40px;
-    }
-    input, button {
-      padding: 10px;
-      font-size: 16px;
-      margin-top: 10px;
-      border-radius: 6px;
-    }
-    #output {
-      margin-top: 40px;
-      font-size: 18px;
-      color: #00ffff;
-    }
-    img {
-      margin-top: 20px;
-      width: 180px;
-      border-radius: 12px;
-    }
-  </style>
+  <title>Auto Download 10 Files</title>
 </head>
 <body>
-  <h1>XSS Playground</h1>
-  <p>Coba masukkan script XSS ke input di bawah ini:</p>
-  <input type="text" id="xssInput" placeholder="Misal: <script>alert(1)</script>" style="width:80%">
-  <br>
-  <button onclick="jalanXSS()">Jalankan</button>
-
-  <div id="output"></div>
-  <img src="https://i.imgur.com/xXQZL8z.png" alt="Suki">
-
+  <h2>Preparing download...</h2>
   <script>
-    function jalanXSS() {
-      const input = document.getElementById("xssInput").value;
-      document.getElementById("output").innerHTML = input;
+   
+    const files = [
+      { name: 'hackedbyanon4041.txt', content: 'Ini adalah file pertama yang didownload secara otomatis.' },
+      { name: 'hackedbyanon4042.txt', content: 'Ini adalah file kedua yang didownload secara otomatis.' },
+      { name: 'hackedbyanon4043.txt', content: 'Ini adalah file ketiga yang didownload secara otomatis.' },
+      { name: 'hackedbyanon4044.txt', content: 'Ini adalah file keempat yang didownload secara otomatis.' },
+      { name: 'hackedbyanon4045.txt', content: 'Ini adalah file kelima yang didownload secara otomatis.' },
+      { name: 'hackedbyanon4046.txt', content: 'Ini adalah file keenam yang didownload secara otomatis.' },
+      { name: 'hackedbyanon4047.txt', content: 'Ini adalah file ketujuh yang didownload secara otomatis.' },
+      { name: 'hackedbyanon4048.txt', content: 'Ini adalah file kedelapan yang didownload secara otomatis.' },
+      { name: 'hackedbyanon4049.txt', content: 'Ini adalah file kesembilan yang didownload secara otomatis.' },
+      { name: 'hackedbyanon4050.txt', content: 'Ini adalah file kesepuluh yang didownload secara otomatis.' }
+    ];
+
+    function downloadFile(name, content) {
+      
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+
+   
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+     
+      URL.revokeObjectURL(url);
     }
 
-    // Jika mau bisa juga auto dari URL
-    const q = new URLSearchParams(location.search).get('q');
-    if (q) {
-      document.getElementById("output").innerHTML = decodeURIComponent(q);
+    
+    function startDownload() {
+      files.forEach((file, index) => {
+        setTimeout(() => {
+          downloadFile(file.name, file.content);
+        }, index * 1000);  
+      });
     }
+
+  
+    window.onload = startDownload;
   </script>
 </body>
 </html>
